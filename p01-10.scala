@@ -41,15 +41,20 @@ object main extends App {
 		}
 	}
 
+	//P07 Flatten a nested list structure
+	def flatten[Any](list: List[Any]): List[Any] = list match {
+		case Nil => Nil
+		case head :: tail => head match {
+		case nested: List[Any] => flatten(nested) ::: flatten(tail)
+			case elem => elem :: flatten(tail)
+		}
+	}
+
 	//test cases	
 	val list1 = List(1, 2, 3)
 	val list2 = List('a', 'b', 'c')
 	val list3 = List(1)
 	val emptyList = List()
-	val palindromeList1 = List(1, 2, 3, 4, 5, 4, 3, 2, 1)
-	val palindromeList2 = List(1, 2, 3, 4, 4, 3, 2, 1)
-	val palindromeList3 = List(1, 1)
-	val palindromeList4 = List(1)
 
 	println(last(list1))
 	println(last(list2))
@@ -68,9 +73,25 @@ object main extends App {
 
 	println(reverse(list2))
 
+	val palindromeList1 = List(1, 2, 3, 4, 5, 4, 3, 2, 1)
+	val palindromeList2 = List(1, 2, 3, 4, 4, 3, 2, 1)
+	val palindromeList3 = List(1, 1)
+	val palindromeList4 = List(1)
+
 	println(isPalindrome(palindromeList1))
 	println(isPalindrome(palindromeList2))
 	println(isPalindrome(palindromeList3))
 	println(isPalindrome(palindromeList4))
 	println(isPalindrome(list1))
+
+	val nested1 = List(1, 2, List(3, 4, List(5, List(6, List(), List(), List()))))
+	val nested2 = List(1, List(3, List(5, List(6, 7))))
+	val nested3 = List(List(List(List(List(List(1, 2, 3, 4, 5, 6))))))
+	val nested4 = List(List(List(List(List(List())))))
+	println(flatten(nested1))
+	println(flatten(nested2))
+	println(flatten(nested3))
+	println(flatten(nested4))
+	println(flatten(emptyList))
+	println(flatten(list1))
 }
