@@ -50,6 +50,17 @@ object main extends App {
 		}
 	}
 
+	//P08 Eliminate consecutive duplicates of list elements
+	def compress[T](list: List[T]): List[T] = list match {
+		case Nil => Nil
+		case head :: tail => tail match {
+			case Nil => List(head)
+			case htail :: ttail => 
+				if(head == htail) compress(tail)
+				else head :: compress(tail)
+		}
+	}
+
 	//test cases	
 	val list1 = List(1, 2, 3)
 	val list2 = List('a', 'b', 'c')
@@ -94,4 +105,13 @@ object main extends App {
 	println(flatten(nested4))
 	println(flatten(emptyList))
 	println(flatten(list1))
+
+	val listWithConsecutiveDuplicates1 = List('a, 'a, 'b, 'b, 'a, 'c, 'c, 'c, 'c)
+	val listWithConsecutiveDuplicates2 = List('a, 'a, 'a)
+	val listWithConsecutiveDuplicates3 = List('a, 'b, 'c)
+	val listWithConsecutiveDuplicates4 = List('a, 'a, 'b, 'b, 'a, 'b, 'c, 'c, 'c, 'c)
+	println(compress(listWithConsecutiveDuplicates1))
+	println(compress(listWithConsecutiveDuplicates2))
+	println(compress(listWithConsecutiveDuplicates3))
+	println(compress(listWithConsecutiveDuplicates4))
 }
