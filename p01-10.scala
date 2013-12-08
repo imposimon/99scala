@@ -61,6 +61,21 @@ object main extends App {
 		}
 	}
 
+	//P09 Pack consecutive duplicates of list elements into sublists
+	def pack[T](list: List[T]): List[List[T]] = {
+		def packHelper(acc: List[List[T]], curPack: List[T], curList: List[T]): List[List[T]] = curList match {
+			case Nil => acc:::List(curPack)
+			case head :: tail =>
+				if(curPack.isEmpty)
+					packHelper(acc, List(head), tail)
+				else if(head == curPack.head)
+					packHelper(acc, head :: curPack, tail)
+				else
+					packHelper(acc:::List(curPack), List(head), tail)
+		}
+		packHelper(List(), List(), list)
+	}
+
 	//test cases	
 	val list1 = List(1, 2, 3)
 	val list2 = List('a', 'b', 'c')
@@ -114,4 +129,9 @@ object main extends App {
 	println(compress(listWithConsecutiveDuplicates2))
 	println(compress(listWithConsecutiveDuplicates3))
 	println(compress(listWithConsecutiveDuplicates4))
+
+	println(pack(listWithConsecutiveDuplicates1))
+	println(pack(listWithConsecutiveDuplicates2))
+	println(pack(listWithConsecutiveDuplicates3))
+	println(pack(listWithConsecutiveDuplicates4))
 }
