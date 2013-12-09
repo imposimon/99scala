@@ -76,6 +76,11 @@ object main extends App {
 		packHelper(List(), List(), list)
 	}
 
+	//P10 Run-length encoding of a list
+	def encode[T](list: List[T]): List[(Int, T)] = 
+		pack(list).map(p => (p.length, p.head))
+
+
 	//test cases	
 	val list1 = List(1, 2, 3)
 	val list2 = List('a', 'b', 'c')
@@ -134,4 +139,9 @@ object main extends App {
 	println(pack(listWithConsecutiveDuplicates2))
 	println(pack(listWithConsecutiveDuplicates3))
 	println(pack(listWithConsecutiveDuplicates4))
+
+	println(encode(listWithConsecutiveDuplicates1))
+	println(encode(listWithConsecutiveDuplicates2))
+	println(encode(listWithConsecutiveDuplicates3))
+	println(encode(listWithConsecutiveDuplicates4))
 }
